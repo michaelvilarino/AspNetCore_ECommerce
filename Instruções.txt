@@ -1,0 +1,59 @@
+1º Criar pastas: 
+   building blocks
+   services
+   web
+
+   building blocks -> Nesta pasta fica tudo o que é reutilizável para o projeto inteiro
+   services -> Nesta pasta ficam as API'S
+   web -> Nesta pasta fica a aplicação web
+
+2º Criar os projetos de API'S e Web
+
+------------------------------------------------------------------------------------------------------------------------
+
+CAMADA DA API DE IDENTIDADE
+
+3º Configurando a api de identidade:
+   Instalar os seguintes pacotes para o aspnet identity:
+
+   Microsoft.AspNetCore.Authentication.JwtBearer
+   Microsoft.AspNetCore.Identity.EntityFrameworkCore
+   Microsoft.AspNetCore.Identity.UI
+   Microsoft.EntityFrameworkCore
+   Microsoft.EntityFrameworkCore.Abstractions
+   Microsoft.EntityFrameworkCore.Relational
+   Microsoft.EntityFrameworkCore.SqlServer
+
+4º Instalar o seguinte pacote para o migrations:
+   Install-Package Microsoft.EntityFrameworkCore.Tools
+
+5º Criar o migration:
+   Add-Migration Initial
+
+6º Atualizar o banco de dados com base ni migration:
+   Update-Database
+
+7º Documentação da API através do Swagger:
+   Instalar o seguinte pacote "Swashbuckle.AspNetcore"
+
+-----------------------------------------------------------------------------------------------------------------------
+CAMADA DO MVC
+
+8º Instalar o seguinte pacote para trabalhar com a resposta da Api de identidade e manipular os cookies: 
+   install-Package Microsoft.AspNetCore.Authentication.JwtBearer
+
+-----------------------------------------------------------------------------------------------------------------------
+
+CAMADA DE API DO CATÁLOGO
+
+9º Abrir o CsProj e adicionar essas linhas na seção ItemGroup dos pacotes:
+
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.3" />
+
+Criar as entidades e contextos, depois inicializar o migration acessando o package manager console: Add-Migration Initial
+Atualizar a database: update-database
+ 
