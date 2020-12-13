@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using EcMic.WebApp.MVC.Extensions;
 using EcMic.WebApp.MVC.Services;
+using EcMic.WebApp.MVC.Services.Handlers;
 
 namespace EcMic.WebApp.MVC.Configuration
 {
@@ -9,8 +10,12 @@ namespace EcMic.WebApp.MVC.Configuration
     {
         public static void RegisterServices(this IServiceCollection services)
         {
+            //Serviço para interceptar chamadas httpclient
+            services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
+
             services.AddHttpClient<IAutenticacaoService, AutenticacaoService>();
-            services.AddHttpClient<ICatalogoService, CatalogoService>();
+            services.AddHttpClient<ICatalogoService, CatalogoService>()
+                    .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();//Indica que vai usar a interceptação
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUser, AspNetUser>();
