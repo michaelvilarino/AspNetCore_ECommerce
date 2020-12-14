@@ -22,7 +22,7 @@ namespace EcMic.WebApp.MVC.Services
         }
 
         public async Task<ProdutoViewModel> ObterPorId(Guid id)
-        {
+        {            
             var response = await _httpClient.GetAsync($"/catalogo/produtos/{id}");
 
             TratarErrosResponse(response);

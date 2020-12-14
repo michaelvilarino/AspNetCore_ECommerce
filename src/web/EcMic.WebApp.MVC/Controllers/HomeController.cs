@@ -23,6 +23,19 @@ namespace EcMic.WebApp.MVC.Controllers
             return View();
         }
 
+        [Route("sistema-indisponivel")]
+        public IActionResult SistemaIndisponivel()
+        {
+            var modelErro = new ErrorViewModel
+            {
+                Mensagem = "O sistema está temporariamente indisponível",
+                Titulo = "Sistema indisponível",
+                ErroCode = 500
+            };
+
+            return View("Error", modelErro);
+        }
+
         [Route("erro/{id:length(3,3)}")]
         public IActionResult Error(int id)
         {
