@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace EcMic.Cliente.API.Data.Mappings
+namespace EcMic.Clientes.API.Data.Mappings
 {
     public class ClienteMapping : IEntityTypeConfiguration<Models.Cliente>
     {

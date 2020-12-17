@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using EcMic.Core.DomainObjects;
 
-namespace EcMic.Cliente.API.Models
+namespace EcMic.Clientes.API.Models
 {
     public interface IClienteRepository : IRepository<Cliente>
     {

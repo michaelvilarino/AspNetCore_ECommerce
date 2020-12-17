@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using EcMic.Cliente.API.Models;
+using EcMic.Clientes.API.Models;
 using EcMic.Core.DomainObjects.Data;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace EcMic.Cliente.API.Data.Repository
+namespace EcMic.Clientes.API.Data.Repository
 {
     public class ClienteRepository : IClienteRepository
     {

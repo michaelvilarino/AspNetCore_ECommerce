@@ -2,7 +2,7 @@
 using EcMic.Core.Messages;
 using FluentValidation;
 
-namespace EcMic.Cliente.API.Application.Commands
+namespace EcMic.Clientes.API.Application.Commands
 {
     public class RegistrarClienteCommand: Command
     {
@@ -25,38 +25,39 @@ namespace EcMic.Cliente.API.Application.Commands
             var ValidationResult = new RegistrarClienteValidation().Validate(this);
             return ValidationResult.IsValid;
         }
+
+        public class RegistrarClienteValidation : AbstractValidator<RegistrarClienteCommand>
+        {
+            public RegistrarClienteValidation()
+            {
+                RuleFor(c => c.Id)
+                    .NotEqual(Guid.Empty)
+                    .WithMessage("Id do cliente inválido");
+
+                RuleFor(c => c.Nome)
+                    .NotEmpty()
+                    .WithMessage("O nome é obrigatório");
+
+                RuleFor(c => c.Cpf)
+                    .Must(TerCpfValido)
+                    .WithMessage("O cpf precisa ser válido");
+
+                RuleFor(c => c.Email)
+                    .Must(TerEmailValido)
+                    .WithMessage("O e-mail precisa ser válido");
+
+            }
+
+            protected static bool TerCpfValido(string cpf)
+            {
+                return Core.DomainObjects.Cpf.ValidarCpf(cpf);
+            }
+
+            protected static bool TerEmailValido(string email)
+            {
+                return Core.DomainObjects.Email.Validar(email);
+            }
+        }
     }
 
-    public class RegistrarClienteValidation : AbstractValidator<RegistrarClienteCommand>
-    {
-        public RegistrarClienteValidation()
-        {
-            RuleFor(c => c.Id)
-                .NotEqual(Guid.Empty)
-                .WithMessage("Id do cliente inválido");
-
-            RuleFor(c => c.Nome)
-                .NotEmpty()
-                .WithMessage("O nome é obrigatório");
-
-            RuleFor(c => c.Cpf)
-                .Must(TerCpfValido)
-                .WithMessage("O cpf precisa ser válido");
-
-            RuleFor(c => c.Email)
-                .Must(TerEmailValido)
-                .WithMessage("O e-mail precisa ser válido");
-
-        }
-
-        protected static bool TerCpfValido(string cpf)
-        {
-            return Core.DomainObjects.Cpf.ValidarCpf(cpf);
-        }
-
-        protected static bool TerEmailValido(string email)
-        {
-            return Core.DomainObjects.Email.Validar(email);
-        }
-    }
 }

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace EcMic.Cliente.API.Configuration
+namespace EcMic.Clientes.API.Configuration
 {
     public static class SwaggerConfig
     {

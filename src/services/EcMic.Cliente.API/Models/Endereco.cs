@@ -1,7 +1,7 @@
 ﻿using System;
 using EcMic.Core.DomainObjects;
 
-namespace EcMic.Cliente.API.Models
+namespace EcMic.Clientes.API.Models
 {
     public class Endereco: Entity
     {

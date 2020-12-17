@@ -1,4 +1,4 @@
-﻿using EcMic.Cliente.API.Models;
+﻿using EcMic.Clientes.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

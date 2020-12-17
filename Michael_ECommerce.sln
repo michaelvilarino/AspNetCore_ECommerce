@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcMic.Carrinho.API", "src\s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcMic.Catalogo.API", "src\services\EcMic.Catalogo.API\EcMic.Catalogo.API.csproj", "{97B0406B-58BC-4D6A-8742-807EE8264332}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcMic.Cliente.API", "src\services\EcMic.Cliente.API\EcMic.Cliente.API.csproj", "{13AF17E0-E7F6-4DE4-9BA5-65D76E07B9F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcMic.Clientes.API", "src\services\EcMic.Cliente.API\EcMic.Clientes.API.csproj", "{13AF17E0-E7F6-4DE4-9BA5-65D76E07B9F8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcMic.Pagamento.API", "src\services\EcMic.Pagamento.API\EcMic.Pagamento.API.csproj", "{F4CEAA3E-D8F2-47B3-9BE1-39B6680A4573}"
 EndProject
@@ -45,7 +45,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcMic.Pedido.API", "src\ser
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{6C0A55BC-F2DD-41C4-97CD-782BB1456539}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMic.WebApi.Core", "src\building blocks\EMic.WebApi.Core\EMic.WebApi.Core.csproj", "{E4BA7BEA-1887-40C2-8846-09263229488E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EMic.WebApi.Core", "src\building blocks\EMic.WebApi.Core\EMic.WebApi.Core.csproj", "{E4BA7BEA-1887-40C2-8846-09263229488E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

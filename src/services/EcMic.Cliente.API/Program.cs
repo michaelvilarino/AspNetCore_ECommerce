@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace EcMic.Cliente.API
+namespace EcMic.Clientes.API
 {
     public class Program
     {

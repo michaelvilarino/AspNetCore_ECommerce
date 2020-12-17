@@ -1,4 +1,4 @@
-using EcMic.Cliente.API.Configuration;
+using EcMic.Clientes.API.Configuration;
 using EMic.WebApi.Core.Identidade;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace EcMic.Cliente.API
+namespace EcMic.Clientes.API
 {
     public class Startup
     {

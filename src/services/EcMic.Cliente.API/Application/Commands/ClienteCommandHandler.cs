@@ -1,12 +1,12 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using EcMic.Cliente.API.Models;
+using EcMic.Clientes.API.Application.Events;
+using EcMic.Clientes.API.Models;
 using EcMic.Core.Messages;
-using EcMic.Core.Utils;
 using FluentValidation.Results;
 using MediatR;
 
-namespace EcMic.Cliente.API.Application.Commands
+namespace EcMic.Clientes.API.Application.Commands
 {
     public class ClienteCommandHandler: CommandHandler, IRequestHandler<RegistrarClienteCommand, ValidationResult>
     {
@@ -36,6 +36,8 @@ namespace EcMic.Cliente.API.Application.Commands
             }
             
             _clienteRepository.Adicionar(cliente);
+            
+            cliente.AdicionarEvento(new ClienteRegistradoEvent(message.Id, message.Nome, message.Email, message.Cpf));
 
             return await PersistirDados(_clienteRepository.UnitOfWork);
         }

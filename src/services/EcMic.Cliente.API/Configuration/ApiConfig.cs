@@ -1,4 +1,4 @@
-﻿using EcMic.Cliente.API.Data;
+﻿using EcMic.Clientes.API.Data;
 using EMic.WebApi.Core.Identidade;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace EcMic.Cliente.API.Configuration
+namespace EcMic.Clientes.API.Configuration
 {
     public static class ApiConfig
     {

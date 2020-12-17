@@ -2,6 +2,8 @@
 using EcMic.Core.DomainObjects.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using EcMic.Core.Messages;
+using FluentValidation.Results;
 
 namespace EcMic.Catalogo.API.Data
 {
@@ -14,6 +16,9 @@ namespace EcMic.Catalogo.API.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Ignore<ValidationResult>();
+            modelBuilder.Ignore<Event>();
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CatalogoContext).Assembly);
         }
 

@@ -9,7 +9,7 @@ namespace EcMic.Core.Messages
         public DateTime TimeStamp { get; private set; }
         public ValidationResult ValidationResult { get; set; }
 
-        public Command()
+        protected Command()
         {
             TimeStamp = DateTime.Now;
         }

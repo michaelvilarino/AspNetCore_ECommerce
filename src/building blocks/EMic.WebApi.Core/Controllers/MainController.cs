@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using FluentValidation.Results;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace EcMic.Identidade.API.Controllers
+namespace EMic.WebApi.Core.Controllers
 {
     [ApiController]
-    public abstract class MainController: Controller
+    public abstract class MainController : Controller
     {
         protected ICollection<string> erros = new List<string>();
 
@@ -28,6 +29,16 @@ namespace EcMic.Identidade.API.Controllers
             var erros = modelState.Values.SelectMany(s => s.Errors);
 
             foreach (var erro in erros)
+            {
+                AdicionarErroProcessamento(erro.ErrorMessage);
+            }
+
+            return CustomResponse();
+        }
+
+        protected ActionResult CustomResponse(ValidationResult validationResult)
+        {
+            foreach (var erro in validationResult.Errors)
             {
                 AdicionarErroProcessamento(erro.ErrorMessage);
             }
