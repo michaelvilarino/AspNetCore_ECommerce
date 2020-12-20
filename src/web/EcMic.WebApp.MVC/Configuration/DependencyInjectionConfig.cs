@@ -8,6 +8,7 @@ using System;
 using Polly;
 using Polly.Extensions.Http;
 using System.Net.Http;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Polly.Retry;
 
 namespace EcMic.WebApp.MVC.Configuration
@@ -16,6 +17,10 @@ namespace EcMic.WebApp.MVC.Configuration
     {
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
+            //Serviço para usar o data annotation de validação do cpf
+            
+            services.AddSingleton<IValidationAttributeAdapterProvider, CpfValidationAttributeAdapterProvider>();
+            
             //Serviço para interceptar chamadas httpclient
             services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
 

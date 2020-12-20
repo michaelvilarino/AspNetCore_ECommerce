@@ -27,7 +27,7 @@ namespace EcMic.Clientes.API.Application.Commands
 
             var cliente = new Models.Cliente(message.Id, message.Nome, message.Email, message.Cpf);
 
-            var clientExistente = _clienteRepository.ObterPorCpf(cliente.Cpf.Numero);
+            var clientExistente = await _clienteRepository.ObterPorCpf(cliente.Cpf.Numero);
 
             if (clientExistente != null)
             {
