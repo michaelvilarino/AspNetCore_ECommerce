@@ -13,7 +13,7 @@ namespace EcMic.Core.DomainObjects
         public Cpf(string numero)
         {
             if (!ValidarCpf((numero))) throw new DomainException(message: "CPF inválido!");
-            Numero = numero;
+            Numero = numero.ApenasNumeros(numero);
         }
 
         public static bool ValidarCpf(string cpf)
