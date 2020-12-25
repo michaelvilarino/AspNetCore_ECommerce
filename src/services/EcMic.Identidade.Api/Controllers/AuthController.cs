@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using EMic.WebApi.Core.Controllers;
 using EcMic.Core.Messages.Integration;
 using EasyNetQ;
+using EcMic.MessageBus;
 
 namespace EcMic.Identidade.API.Controllers
 {    
@@ -26,16 +27,18 @@ namespace EcMic.Identidade.API.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
 
-        private IBus _ibus;
+        private IMessageBus _ibus;
 
         public AuthController(
                               SignInManager<IdentityUser> signInManager, 
                               UserManager<IdentityUser> userManager, 
-                              IOptions<AppSettings> AppSettings)
+                              IOptions<AppSettings> AppSettings,
+                              IMessageBus bus)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _appSettings = AppSettings.Value;
+            _ibus = bus;
         }
 
         [HttpPost("nova-conta")]
@@ -57,6 +60,12 @@ namespace EcMic.Identidade.API.Controllers
                 //Registra o cliente
                 var resposta = await RegistrarCliente(usuarioRegistro);
 
+                if(!resposta.ValidationResult.IsValid)
+                {
+                    await _userManager.DeleteAsync(user);
+                    return CustomResponse(resposta.ValidationResult);
+                }
+
                 return CustomResponse(await GerarJwt(usuarioRegistro.Email));
             }
 
@@ -75,11 +84,16 @@ namespace EcMic.Identidade.API.Controllers
             var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(
                 Guid.Parse(usuario.Id), usuarioRegistro.Nome, usuarioRegistro.Email, usuarioRegistro.Cpf);
 
-            _ibus = RabbitHutch.CreateBus(connectionString: "host=localhost");
-
-            var resposta = await _ibus.Rpc.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioRegistrado);
-
-            return resposta;
+            try
+            {
+                return await _ibus.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioRegistrado);
+            }
+            catch
+            {
+                await _userManager.DeleteAsync(usuario);
+                throw;
+            }
+                        
         }
 
         [HttpPost("autenticar")]

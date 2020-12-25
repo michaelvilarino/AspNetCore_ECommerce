@@ -75,3 +75,5 @@ COMUNICAÇÃO ENTRE API'S
 15º Utilizar a biblioteca (EasyNetQ) - Pattern Request Response
 
 16º Instalar o EasyNetQ na API de identidade e cliente : Install-Package EasyNetQ
+
+17º Instalar o pacote de injeção de dependência no camada EcMic.MessageBus:  Install-Package Microsoft.Extensions.DependencyInjection.Abstractions

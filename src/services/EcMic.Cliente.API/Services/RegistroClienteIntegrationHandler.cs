@@ -1,13 +1,11 @@
-﻿using EasyNetQ;
-using EcMic.Clientes.API.Application.Commands;
+﻿using EcMic.Clientes.API.Application.Commands;
 using EcMic.Core.Mediator;
 using EcMic.Core.Messages.Integration;
+using EcMic.MessageBus;
 using FluentValidation.Results;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,25 +13,36 @@ namespace EcMic.Clientes.API.Services
 {
     public class RegistroClienteIntegrationHandler : BackgroundService
     {
-        private IBus _ibus;
+        private readonly IMessageBus _ibus;
         private readonly IServiceProvider _serviceProvider;
 
-        public RegistroClienteIntegrationHandler(IServiceProvider serviceProvider)
+        public RegistroClienteIntegrationHandler(IServiceProvider serviceProvider, IMessageBus bus)
         {
             _serviceProvider = serviceProvider;
+            _ibus = bus;
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _ibus = RabbitHutch.CreateBus(connectionString: "host=localhost");
-
-            _ibus.Rpc.RespondAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(responder: async request =>
-            new ResponseMessage(await RegistrarCliente(request)));
+            SetResponder();
 
             return Task.CompletedTask;
         }
 
-        private async Task<ValidationResult> RegistrarCliente(UsuarioRegistradoIntegrationEvent message)
+        private void OnConnect(object s, EventArgs e)
+        {
+            SetResponder();
+        }
+
+        private void SetResponder()
+        {
+            _ibus.RespondAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(responder: async request =>
+          await RegistrarCliente(request));
+
+            _ibus.AdvancedBus.Connected += OnConnect;
+        }
+
+        private async Task<ResponseMessage> RegistrarCliente(UsuarioRegistradoIntegrationEvent message)
         {
             var clienteCommand = new RegistrarClienteCommand(message.Id, message.Nome, message.Email, message.Cpf);
             ValidationResult sucesso;
@@ -44,7 +53,7 @@ namespace EcMic.Clientes.API.Services
                 sucesso = await mediator.EnviarComando(clienteCommand);
             }
 
-            return sucesso;
+            return new ResponseMessage(sucesso);
         }
     }
 }

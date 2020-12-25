@@ -36,6 +36,8 @@ namespace EcMic.Identidade.Api
             services.AddApiConfiguration();
 
             services.AddSwaggerConfiguration();
+
+            services.AddMessageBusConfiguration(Configuration);
            
         }
 

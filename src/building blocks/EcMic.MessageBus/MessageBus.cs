@@ -10,6 +10,7 @@ namespace EcMic.MessageBus
     public class MessageBus : IMessageBus
     {
         private IBus _bus;
+        private IAdvancedBus _advancedBus;
 
         private readonly string _connectionString;
 
@@ -20,8 +21,7 @@ namespace EcMic.MessageBus
         }
 
         public bool IsConnected => _bus?.Advanced.IsConnected ?? false;
-
-        public IAdvancedBus AdvancedBus => throw new NotImplementedException();
+        public IAdvancedBus AdvancedBus => _bus?.Advanced;
 
         public void Publish<T>(T message) where T : IntegrationEvent
         {
@@ -87,7 +87,21 @@ namespace EcMic.MessageBus
                 .Or<BrokerUnreachableException>()
                 .WaitAndRetry(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
 
-            policy.Execute(() => { _bus = RabbitHutch.CreateBus(_connectionString); });            
+            policy.Execute(() => 
+            { 
+                _bus = RabbitHutch.CreateBus(_connectionString);
+                _advancedBus = _bus.Advanced;
+                _advancedBus.Disconnected += OnDisconect;
+            });            
+        }
+
+        private void OnDisconect(object s, EventArgs e)
+        {
+            var policy = Policy.Handle<EasyNetQException>()
+                .Or<BrokerUnreachableException>()
+                .RetryForever();
+
+            policy.Execute(TryConnect);
         }
 
         public void Dispose()
