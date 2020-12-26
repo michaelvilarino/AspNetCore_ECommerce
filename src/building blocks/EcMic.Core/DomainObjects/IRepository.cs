@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using EcMic.Core.DomainObjects.Data;
 
 namespace EcMic.Core.DomainObjects
