@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using System;
+using System.Text.Json.Serialization;
 
 namespace EcMic.Carrinho.API.Models
 {
@@ -17,6 +18,8 @@ namespace EcMic.Carrinho.API.Models
         public decimal Valor { get; set; }
         public string Imagem { get; set; }
         public Guid CarrinhoId { get; set; }
+
+        [JsonIgnore] //Ignora a referência cíclica
         public CarrinhoCliente CarrinhoCliente { get; set; }
 
         internal void AssociarCarrinho(Guid carrinhoId)
@@ -39,11 +42,6 @@ namespace EcMic.Carrinho.API.Models
             Quantidade = unidades;
         }
 
-        internal bool EhValido()
-        {
-            return new ItemCarrinhoValidation().Validate(this).IsValid;
-        }
-
         public class ItemCarrinhoValidation: AbstractValidator<CarrinhoItem>
         {
             public ItemCarrinhoValidation()
@@ -61,7 +59,7 @@ namespace EcMic.Carrinho.API.Models
                     .WithMessage(item => $"A quantidade mínima para o item {item.Nome} é 1.");
 
                 RuleFor(c => c.Quantidade)
-                    .LessThan(15)
+                    .LessThanOrEqualTo(5)
                     .WithMessage(item => $"A quantidade máxima do item {item.Nome} é 5");
 
                 RuleFor(c => c.Valor)

@@ -17,20 +17,28 @@ namespace EcMic.WebApp.MVC.Configuration
     public static class DependencyInjectionConfig
     {
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
-        {
-            //Serviço para usar o data annotation de validação do cpf
-            
+        {                        
             services.AddSingleton<IValidationAttributeAdapterProvider, CpfValidationAttributeAdapterProvider>();
-            
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IAspNetUser, AspNetUser>();
+
+            #region HttpServices
             //Serviço para interceptar chamadas httpclient
             services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
 
-            services.AddHttpClient<IAutenticacaoService, AutenticacaoService>();
+            services.AddHttpClient<IAutenticacaoService, AutenticacaoService>()
+                    .AddPolicyHandler(PolyExtensions.EsperarTentar())
+                    .AddTransientHttpErrorPolicy(p => p.CircuitBreakerAsync(handledEventsAllowedBeforeBreaking: 5, TimeSpan.FromSeconds(30)));
 
             services.AddHttpClient<ICatalogoService, CatalogoService>()
-                    .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()//Indica que vai usar a interceptação
+                    .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()//Indica que vai usar a interceptação antes de qualquer request do serviço
                     .AddPolicyHandler(PolyExtensions.EsperarTentar())
                     .AddTransientHttpErrorPolicy(p => p.CircuitBreakerAsync(handledEventsAllowedBeforeBreaking: 5, TimeSpan.FromSeconds(30)));//Serve para para as tentativas de chamadas por 30 segundos após tentar 5 vezes
+
+            services.AddHttpClient<ICarrinhoService, CarrinhoService>()
+                    .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
+                    .AddPolicyHandler(PolyExtensions.EsperarTentar())
+                    .AddTransientHttpErrorPolicy(p => p.CircuitBreakerAsync(handledEventsAllowedBeforeBreaking: 5, TimeSpan.FromSeconds(30)));
 
             //services.AddHttpClient<ICatalogoService, CatalogoService>()
             //        .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()//Indica que vai usar a interceptação
@@ -40,10 +48,12 @@ namespace EcMic.WebApp.MVC.Configuration
             //                        options => { options.BaseAddress = new Uri(configuration.GetSection("CatalogoUrl").Value); })
             //       .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()//Indica que vai usar a interceptação
             //       .AddTypedClient(Refit.RestService.For<ICatalogoServiceRefit>);
+            #endregion HttpServices
 
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<IAspNetUser, AspNetUser>();
+
+
+
         }
 
         /// <summary>

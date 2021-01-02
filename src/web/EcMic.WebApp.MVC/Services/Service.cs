@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using EcMic.WebApp.MVC.Extensions;
+using EcMic.WebApp.MVC.Models;
 
 namespace EcMic.WebApp.MVC.Services
 {
@@ -42,6 +43,11 @@ namespace EcMic.WebApp.MVC.Services
 
             response.EnsureSuccessStatusCode();
             return true;
+        }
+
+        protected ResponseResult RetornoOk()
+        {
+            return new ResponseResult();
         }
     }
 }

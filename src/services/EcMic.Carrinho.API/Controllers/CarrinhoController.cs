@@ -40,8 +40,7 @@ namespace EcMic.Carrinho.API.Controllers
                 ManipularNovoCarrinho(item);            
             else            
                 ManipularCarrinhoExistente(carrinho, item);
-
-            ValidarCarrinho(carrinho);
+       
             if(!OperacaoValida()) return CustomResponse();
 
             await PersistirDados();
@@ -98,6 +97,8 @@ namespace EcMic.Carrinho.API.Controllers
             var carrinho = new CarrinhoCliente(_user.ObterUserId());
             carrinho.AdicionarItem(item);
 
+            ValidarCarrinho(carrinho);
+
             _context.CarrinhoCliente.Add(carrinho);
         }
 
@@ -107,6 +108,8 @@ namespace EcMic.Carrinho.API.Controllers
 
             carrinho.AdicionarItem(Item);
 
+            ValidarCarrinho(carrinho);
+
             if (produtoItemExistente)
             {
                 _context.CarrinhoItens.Update(carrinho.ObterPorProdutoId(Item.ProdutoId));
@@ -115,6 +118,7 @@ namespace EcMic.Carrinho.API.Controllers
             {
                 _context.CarrinhoItens.Add(Item);
             }
+           
 
             _context.CarrinhoCliente.Update(carrinho);
 

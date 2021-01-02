@@ -1,9 +1,6 @@
 ﻿using EcMic.WebApp.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace EcMic.WebApp.MVC.Controllers
 {
@@ -22,6 +19,16 @@ namespace EcMic.WebApp.MVC.Controllers
             }
 
             return false;
+        }
+
+        protected void AdicionarErroValidacao(string mensagem)
+        {
+            ModelState.AddModelError(string.Empty, mensagem);
+        }
+
+        protected bool OperacaoValida()
+        {
+            return ModelState.ErrorCount == 0;
         }
     }
 }
