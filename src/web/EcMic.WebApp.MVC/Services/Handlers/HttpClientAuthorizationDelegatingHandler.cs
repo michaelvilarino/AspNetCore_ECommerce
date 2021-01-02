@@ -1,4 +1,4 @@
-﻿using EcMic.WebApp.MVC.Extensions;
+﻿using EMic.WebApi.Core.Usuario;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -9,9 +9,9 @@ namespace EcMic.WebApp.MVC.Services.Handlers
 {
     public class HttpClientAuthorizationDelegatingHandler: DelegatingHandler
     {
-        private readonly IUser _user;
+        private readonly IAspNetUser _user;
 
-        public HttpClientAuthorizationDelegatingHandler(IUser IUser)
+        public HttpClientAuthorizationDelegatingHandler(IAspNetUser IUser)
         {
             _user = IUser;
         }

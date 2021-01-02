@@ -1,5 +1,6 @@
 ﻿@using EcMic.WebApp.MVC.Extensions
-@inject IUser AppUser
+@using EMic.WebApi.Core.Usuario
+@inject IAspNetUser AppUser
 
 @if (AppUser.EstaAutenticado())
 {

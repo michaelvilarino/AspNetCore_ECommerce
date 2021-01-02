@@ -10,6 +10,7 @@ using Polly.Extensions.Http;
 using System.Net.Http;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Polly.Retry;
+using EMic.WebApi.Core.Usuario;
 
 namespace EcMic.WebApp.MVC.Configuration
 {
@@ -42,7 +43,7 @@ namespace EcMic.WebApp.MVC.Configuration
 
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<IUser, AspNetUser>();
+            services.AddScoped<IAspNetUser, AspNetUser>();
         }
 
         /// <summary>
