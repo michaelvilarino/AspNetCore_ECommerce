@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace EcMic.WebApp.MVC.Controllers
 {
-    public class IdentidadeController:Controller
+    public class IdentidadeController: MainController
     {
        private readonly IAutenticacaoService _autenticacaoService;
 
@@ -36,6 +36,8 @@ namespace EcMic.WebApp.MVC.Controllers
 
             var resposta = await _autenticacaoService.Registro(usuarioRegistro);
 
+            if (ResponsePossuiErros(resposta.ResponseResult)) return View(usuarioRegistro);
+
             await RealizarLogin(resposta);
 
             return RedirectToAction("index", "home");
@@ -58,6 +60,8 @@ namespace EcMic.WebApp.MVC.Controllers
             if (!ModelState.IsValid) return View(usuarioLogin);
 
             var resposta = await _autenticacaoService.Login(usuarioLogin);
+
+            if (ResponsePossuiErros(resposta.ResponseResult)) return View(usuarioLogin);
 
             await RealizarLogin(resposta);
 

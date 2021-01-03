@@ -26,9 +26,9 @@ namespace EcMic.Carrinho.API.Controllers
         [HttpGet("Carrinho")]
         public async Task<CarrinhoCliente> ObterCarrinho()
         {
-            var retorno = ObterCarrinhoCliente();
+            var retorno = await ObterCarrinhoCliente();
 
-            return await retorno ?? new CarrinhoCliente();
+            return retorno ?? new CarrinhoCliente();
         }  
         
         [HttpPost("Carrinho")]

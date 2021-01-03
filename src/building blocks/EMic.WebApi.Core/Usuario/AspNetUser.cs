@@ -19,7 +19,18 @@ namespace EMic.WebApi.Core.Usuario
 
         public Guid ObterUserId()
         {
-            return EstaAutenticado() ? Guid.Parse(_accessor.HttpContext.User.GetUserId()) : Guid.Empty;
+            if(EstaAutenticado())
+            {
+                var guidUser = _accessor.HttpContext.User.GetUserId();
+                if (!string.IsNullOrEmpty(guidUser))
+                    return Guid.Parse(guidUser);
+                else
+                    return Guid.Empty;
+            }
+            else
+                return Guid.Empty;
+
+            //return EstaAutenticado() ? Guid.Parse(_accessor.HttpContext.User.GetUserId()) : Guid.Empty;
         }
 
         public string ObterUserEmail()

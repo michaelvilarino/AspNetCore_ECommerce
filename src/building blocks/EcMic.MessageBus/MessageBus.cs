@@ -16,8 +16,8 @@ namespace EcMic.MessageBus
 
         public MessageBus(string connectionString)
         {
-            TryConnect();
             _connectionString = connectionString;
+            TryConnect();           
         }
 
         public bool IsConnected => _bus?.Advanced.IsConnected ?? false;
