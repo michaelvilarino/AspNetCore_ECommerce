@@ -1,4 +1,5 @@
-﻿using EcMic.WebApp.MVC.Models;
+﻿using EcMic.Core.Communication;
+using EcMic.WebApp.MVC.Models;
 using System;
 using System.Threading.Tasks;
 

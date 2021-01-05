@@ -159,7 +159,7 @@ namespace EcMic.Carrinho.API.Controllers
 
         private async Task PersistirDados()
         {
-            var result = _context.SaveChanges();
+            var result = await _context.SaveChangesAsync();
             if (result <= 0) AdicionarErroProcessamento("Não foi possível persistir os dados no banco");
         }
 

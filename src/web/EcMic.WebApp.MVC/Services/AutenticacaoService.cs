@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using EcMic.WebApp.MVC.Extensions;
 using EcMic.WebApp.MVC.Models;
+using EcMic.Core.Communication;
 
 namespace EcMic.WebApp.MVC.Services
 {

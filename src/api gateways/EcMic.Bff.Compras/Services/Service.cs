@@ -1,12 +1,11 @@
-﻿using System.Net.Http;
+﻿using EcMic.Core.Communication;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using EcMic.Core.Communication;
-using EcMic.WebApp.MVC.Extensions;
-using EcMic.WebApp.MVC.Models;
 
-namespace EcMic.WebApp.MVC.Services
+namespace EcMic.Bff.Compras.Services
 {
     public abstract class Service
     {
@@ -30,17 +29,7 @@ namespace EcMic.WebApp.MVC.Services
 
         protected bool TratarErrosResponse(HttpResponseMessage response)
         {
-            switch ((int)response.StatusCode)
-            {
-                case 401:
-                case 403:
-                case 404:
-                case 500:
-                    throw new CustomHttpRequestException(response.StatusCode);
-
-                case 400:
-                    return false;
-            }
+            if (response.StatusCode == HttpStatusCode.BadRequest) return false;
 
             response.EnsureSuccessStatusCode();
             return true;

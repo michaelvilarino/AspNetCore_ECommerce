@@ -1,4 +1,4 @@
-﻿using EcMic.WebApp.MVC.Models;
+﻿using EcMic.Core.Communication;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
