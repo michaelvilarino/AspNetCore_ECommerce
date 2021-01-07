@@ -7,10 +7,10 @@ namespace EcMic.WebApp.MVC.Models
     public class CarrinhoViewModel
     {
         public decimal ValorTotal { get; set; }
-        public IList<ItemProdutoViewModel> Itens { get; set; } = new List<ItemProdutoViewModel>();
+        public IList<ItemCarrinhoViewModel> Itens { get; set; } = new List<ItemCarrinhoViewModel>();
     }
 
-    public class ItemProdutoViewModel
+    public class ItemCarrinhoViewModel
     {
         public Guid ProdutoId { get; set; }
         public string Nome { get; set; }

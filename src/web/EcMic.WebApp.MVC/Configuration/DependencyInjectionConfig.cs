@@ -35,7 +35,7 @@ namespace EcMic.WebApp.MVC.Configuration
                     .AddPolicyHandler(PolyExtensions.EsperarTentar())
                     .AddTransientHttpErrorPolicy(p => p.CircuitBreakerAsync(handledEventsAllowedBeforeBreaking: 5, TimeSpan.FromSeconds(30)));//Serve para para as tentativas de chamadas por 30 segundos após tentar 5 vezes
 
-            services.AddHttpClient<ICarrinhoService, CarrinhoService>()
+            services.AddHttpClient<IComprasBffService, ComprasBffService>()
                     .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
                     .AddPolicyHandler(PolyExtensions.EsperarTentar())
                     .AddTransientHttpErrorPolicy(p => p.CircuitBreakerAsync(handledEventsAllowedBeforeBreaking: 5, TimeSpan.FromSeconds(30)));
