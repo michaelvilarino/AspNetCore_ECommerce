@@ -16,12 +16,16 @@ namespace EcMic.Pedido.Infra.Data
     {
         private readonly IMediatorHandler _mediatorHandler;
 
+        public PedidosContext(DbContextOptions<PedidosContext> options) : base(options)
+        {
+
+        }
+
         public PedidosContext(DbContextOptions<PedidosContext> options, IMediatorHandler mediatorHandler)
             : base(options)
         {
             _mediatorHandler = mediatorHandler;
         }
-
 
         public DbSet<EcMic.Pedido.Domain.Pedidos.Pedido> Pedidos { get; set; }
         public DbSet<PedidoItem> PedidoItems { get; set; }

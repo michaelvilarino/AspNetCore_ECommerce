@@ -14,6 +14,11 @@ namespace EcMic.Carrinho.API.Models
         public List<CarrinhoItem> Itens { get; set; } = new List<CarrinhoItem>();
         public ValidationResult ValidationResult { get; set; }
 
+        public bool VoucherUtilizado { get; set; }
+        public decimal Desconto { get; set; }
+
+        public Voucher Voucher { get; set; }
+
         public CarrinhoCliente(Guid clienteId)
         {
             Id = Guid.NewGuid();
@@ -75,9 +80,45 @@ namespace EcMic.Carrinho.API.Models
             AtualizarItem(item);
         }
 
+        public void AplicarVoucher(Voucher voucher)
+        {
+            Voucher = voucher;
+            VoucherUtilizado = true;
+            CalcularValorCarrinho();
+        }
+
+        private void CalcularValorTotalDesconto()
+        {
+            if (!VoucherUtilizado) return;
+
+            decimal desconto = 0;
+            var valor = ValorTotal;
+
+            if (Voucher.TipoDesconto == TipoDescontoVoucher.Porcentagem)
+            {
+                if (Voucher.Percentual.HasValue)
+                {
+                    desconto = (valor * Voucher.Percentual.Value) / 100;
+                    valor -= desconto;
+                }
+            }
+            else
+            {
+                if (Voucher.ValorDesconto.HasValue)
+                {
+                    desconto = Voucher.ValorDesconto.Value;
+                    valor -= desconto;
+                }
+            }
+
+            ValorTotal = valor < 0 ? 0 : valor;
+            Desconto = desconto;
+        }
+
         internal void CalcularValorCarrinho()
         {
             ValorTotal = Itens.Sum(p => p.CalcularValor());
+            CalcularValorTotalDesconto();
         }
 
         internal bool EhValido()

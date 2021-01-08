@@ -60,5 +60,16 @@ namespace EcMic.WebApp.MVC.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        [Route("carrinho/aplicar-voucher")]
+        public async Task<IActionResult> AplicarVoucher(string voucherCodigo)
+        {
+            var resposta = await _comprasBffService.AplicarVoucherCarrinho(voucherCodigo);
+
+            if (ResponsePossuiErros(resposta)) return View("index", await _comprasBffService.ObterCarrinho());
+
+            return RedirectToAction("index");
+        }
     }
 }

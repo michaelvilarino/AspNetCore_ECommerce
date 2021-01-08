@@ -14,11 +14,15 @@ namespace EcMic.Bff.Compras.Controllers
     {
         private readonly ICarrinhoService _carrinhoService;
         private readonly ICatalogoService _catalogoService;
+        private readonly IPedidoService _pedidoService;
 
-        public CarrinhoController(ICarrinhoService ICarrinhoService, ICatalogoService ICatalogoService)
+        public CarrinhoController(ICarrinhoService ICarrinhoService, 
+                                  ICatalogoService ICatalogoService,
+                                  IPedidoService   IPedidoService)
         {
             _carrinhoService = ICarrinhoService;
             _catalogoService = ICatalogoService;
+            _pedidoService   = IPedidoService;
         }
 
         [HttpGet]
@@ -82,6 +86,23 @@ namespace EcMic.Bff.Compras.Controllers
             }
 
             var resposta = await _carrinhoService.RemoverItemCarrinho(produtoId);
+
+            return CustomResponse(resposta);
+        }
+
+        [HttpPost]
+        [Route("compras/carrinho/aplicar-voucher")]
+        public async Task<IActionResult> AplicarVoucher([FromBody] string voucherCodigo)
+        {
+            var voucher = await _pedidoService.ObterVoucherPorCodigo(voucherCodigo);
+
+            if(voucher is null)
+            {
+                AdicionarErroProcessamento("Voucher inválido ou não encontrado");
+                return CustomResponse();
+            }
+
+            var resposta = await _carrinhoService.AplicarVoucherCarrinho(voucher);
 
             return CustomResponse(resposta);
         }
