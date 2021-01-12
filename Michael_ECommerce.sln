@@ -57,9 +57,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Compras", "Compras", "{CED5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcMic.Bff.Compras", "src\api gateways\EcMic.Bff.Compras\EcMic.Bff.Compras.csproj", "{226F2FBC-9415-4F93-BA0A-A79031BDC458}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcMic.Pedido.Domain", "src\services\EcMic.Pedido.Domain\EcMic.Pedido.Domain.csproj", "{D7B3A1BB-90D9-4B25-A181-10632E25A4D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcMic.Pedido.Domain", "src\services\EcMic.Pedido.Domain\EcMic.Pedido.Domain.csproj", "{D7B3A1BB-90D9-4B25-A181-10632E25A4D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcMic.Pedido.Infra", "src\services\EcMic.Pedido.Infra\EcMic.Pedido.Infra.csproj", "{D98FB658-7CCC-4C2E-BEFB-963816C8B441}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcMic.Pedido.Infra", "src\services\EcMic.Pedido.Infra\EcMic.Pedido.Infra.csproj", "{D98FB658-7CCC-4C2E-BEFB-963816C8B441}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcMic.Pagamento.MicPag", "src\services\EcMic.Pagamento.MicPag\EcMic.Pagamento.MicPag.csproj", "{AADF4A5C-7B76-4FAC-99F5-44D994461376}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -119,6 +121,10 @@ Global
 		{D98FB658-7CCC-4C2E-BEFB-963816C8B441}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D98FB658-7CCC-4C2E-BEFB-963816C8B441}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D98FB658-7CCC-4C2E-BEFB-963816C8B441}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AADF4A5C-7B76-4FAC-99F5-44D994461376}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AADF4A5C-7B76-4FAC-99F5-44D994461376}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AADF4A5C-7B76-4FAC-99F5-44D994461376}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AADF4A5C-7B76-4FAC-99F5-44D994461376}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -152,6 +158,7 @@ Global
 		{226F2FBC-9415-4F93-BA0A-A79031BDC458} = {CED534F4-A12B-4E79-ABC4-E3C8ECCEDF3B}
 		{D7B3A1BB-90D9-4B25-A181-10632E25A4D3} = {795F3319-64A7-4FB2-AEDD-D86E00E0886C}
 		{D98FB658-7CCC-4C2E-BEFB-963816C8B441} = {795F3319-64A7-4FB2-AEDD-D86E00E0886C}
+		{AADF4A5C-7B76-4FAC-99F5-44D994461376} = {FB099F58-2728-44F6-A290-53676E2BFC54}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A2C95FB-6083-402A-A47E-7FD3A2304C15}
