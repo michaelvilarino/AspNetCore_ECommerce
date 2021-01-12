@@ -51,9 +51,13 @@ namespace EcMic.Carrinho.API.Data
                         .HasForeignKey(c => c.CarrinhoId);
 
             //Se excluir uma entidade mãe, não exclui os filhos em cascata.
+            //foreach (var relationShip in modelBuilder.Model.GetEntityTypes()
+            //                                              .SelectMany(e => e.GetForeignKeys()))
+            //    relationShip.DeleteBehavior = DeleteBehavior.ClientSetNull;
+
             foreach (var relationShip in modelBuilder.Model.GetEntityTypes()
-                                                          .SelectMany(e => e.GetForeignKeys()))
-                relationShip.DeleteBehavior = DeleteBehavior.ClientSetNull;
+                                              .SelectMany(e => e.GetForeignKeys()))
+                relationShip.DeleteBehavior = DeleteBehavior.Cascade;
         }
 
         public async Task<bool> Commit()

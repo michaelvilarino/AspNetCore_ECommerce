@@ -1,7 +1,6 @@
 ﻿using EcMic.Core.DomainObjects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EcMic.Catalogo.API.Models
@@ -12,5 +11,6 @@ namespace EcMic.Catalogo.API.Models
         Task<Produto> ObterPorId(Guid id);
         void Adicionar(Produto produto);
         void Atualizar(Produto produto);
+        Task<List<Produto>> ObterProdutosPorId(string ids);
     }
 }

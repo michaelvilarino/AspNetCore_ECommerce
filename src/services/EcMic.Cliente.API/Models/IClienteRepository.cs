@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using EcMic.Core.DomainObjects;
 
@@ -10,5 +11,8 @@ namespace EcMic.Clientes.API.Models
 
         Task<IEnumerable<Cliente>> ObterTodos();
         Task<Cliente> ObterPorCpf(string cpf);
+
+        Task<Endereco> ObterEnderecoPorId(Guid id);
+        void AdicionarEndereco(Endereco endereco);
     }
 }

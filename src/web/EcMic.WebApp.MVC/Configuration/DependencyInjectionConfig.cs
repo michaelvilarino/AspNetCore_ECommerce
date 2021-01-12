@@ -40,6 +40,11 @@ namespace EcMic.WebApp.MVC.Configuration
                     .AddPolicyHandler(PolyExtensions.EsperarTentar())
                     .AddTransientHttpErrorPolicy(p => p.CircuitBreakerAsync(handledEventsAllowedBeforeBreaking: 5, TimeSpan.FromSeconds(30)));
 
+            services.AddHttpClient<IClienteService, ClienteService>()
+                    .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
+                    .AddPolicyHandler(PolyExtensions.EsperarTentar())
+                    .AddTransientHttpErrorPolicy(p => p.CircuitBreakerAsync(handledEventsAllowedBeforeBreaking: 5,   TimeSpan.FromSeconds(30)));
+
             //services.AddHttpClient<ICatalogoService, CatalogoService>()
             //        .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()//Indica que vai usar a interceptação
             //        .AddTransientHttpErrorPolicy(p => p.WaitAndRetryAsync(retryCount: 3, sleepDurationProvider: _ => TimeSpan.FromMilliseconds(600)));

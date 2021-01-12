@@ -34,13 +34,13 @@ namespace EcMic.Pedido.API.Application.Commands
             var pedido = MapearPedido(message);
 
             // Aplicar voucher se houver
-            if (!await AplicarVoucher(message, pedido)) return new ValidationResult();
+            if (!await AplicarVoucher(message, pedido)) return validationResult;
 
             // Validar pedido
-            if (!ValidarPedido(pedido)) return new ValidationResult();
+            if (!ValidarPedido(pedido)) return validationResult;
 
             // Processar pagamento
-            if (!ProcessarPagamento(pedido)) return new ValidationResult();
+            if (!ProcessarPagamento(pedido)) return validationResult;
 
             // Se pagamento tudo ok!
             pedido.AutorizarPedido();
