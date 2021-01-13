@@ -1,7 +1,6 @@
 ﻿using EcMic.Bff.Compras.Models;
 using EcMic.Bff.Compras.Services;
 using EMic.WebApi.Core.Controllers;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
@@ -9,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace EcMic.Bff.Compras.Controllers
 {
-    [Authorize]
     public class CarrinhoController : MainController
     {
         private readonly ICarrinhoService _carrinhoService;

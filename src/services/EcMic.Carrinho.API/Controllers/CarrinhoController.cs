@@ -10,8 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace EcMic.Carrinho.API.Controllers
-{
-    [Authorize]
+{    
     public class CarrinhoController : MainController
     {
         private readonly IAspNetUser _user;

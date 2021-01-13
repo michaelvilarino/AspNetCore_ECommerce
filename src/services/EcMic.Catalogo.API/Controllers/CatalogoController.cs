@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 using EMic.WebApi.Core.Controllers;
 
 namespace EcMic.Catalogo.API.Controllers
-{
-    [Authorize]
+{    
     public class CatalogoController : MainController
     {
         private readonly IProdutoRepository _produtoRepository;
@@ -19,14 +18,13 @@ namespace EcMic.Catalogo.API.Controllers
             _produtoRepository = IProdutoRepository;
         }
 
-        [AllowAnonymous]
+  
         [HttpGet("catalogo/produtos")]
         public async Task<IEnumerable<Produto>> Index()
         {
             return await _produtoRepository.ObterTodos();
         }
 
-        [ClaimsAuthorize("Catalogo", "Ler")]
         [HttpGet("catalogo/produtos/{id}")]
         public async Task<Produto> ProdutoDetalhe(Guid id)
         {            

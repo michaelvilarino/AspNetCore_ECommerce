@@ -65,7 +65,7 @@ namespace EcMic.WebApp.MVC.Controllers
 
             await RealizarLogin(resposta);
 
-            if(string.IsNullOrEmpty(returnUrl)) return RedirectToAction("index", "home");
+            if(string.IsNullOrEmpty(returnUrl)) return RedirectToAction("index", "Catalogo");
 
             return LocalRedirect(returnUrl);
         }

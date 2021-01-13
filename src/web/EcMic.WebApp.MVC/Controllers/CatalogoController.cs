@@ -20,6 +20,7 @@ namespace EcMic.WebApp.MVC.Controllers
         [Route("vitrine")]
         public async Task<IActionResult> Index()
         {
+            
             var produtos = await _catalogoService.ObterTodos();
 
             return View(produtos);
