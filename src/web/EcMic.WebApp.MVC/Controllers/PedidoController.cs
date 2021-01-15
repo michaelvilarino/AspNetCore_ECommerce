@@ -66,7 +66,7 @@ namespace EcMic.WebApp.MVC.Controllers
         [HttpGet]
         [Route("pedido-concluido")]
         public async Task<IActionResult> PedidoConcluido()
-        {
+        {            
             return View("ConfirmacaoPedido", await _comprasBffService.ObterUltimoPedido());
         }
 

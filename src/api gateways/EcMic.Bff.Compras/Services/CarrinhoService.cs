@@ -16,6 +16,7 @@ namespace EcMic.Bff.Compras.Services
         Task<ResponseResult> RemoverItemCarrinho(Guid produtoId);
 
         Task<ResponseResult> AplicarVoucherCarrinho(VoucherDTO voucher);
+        Task<ResponseResult> RemoverCarrinho();
     }
 
     public class CarrinhoService : Service, ICarrinhoService
@@ -64,6 +65,14 @@ namespace EcMic.Bff.Compras.Services
         {
             var response = await _httpClient.DeleteAsync($"/carrinho/{produtoId}");
 
+            if (!TratarErrosResponse(response)) return await DeserializarObjetoResponse<ResponseResult>(response);
+
+            return RetornoOk();
+        }
+
+        public async Task<ResponseResult> RemoverCarrinho()
+        {
+            var response = await _httpClient.DeleteAsync($"carrinho/Remover");
             if (!TratarErrosResponse(response)) return await DeserializarObjetoResponse<ResponseResult>(response);
 
             return RetornoOk();

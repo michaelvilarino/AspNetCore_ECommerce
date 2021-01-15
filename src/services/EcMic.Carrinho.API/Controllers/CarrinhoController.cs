@@ -90,6 +90,17 @@ namespace EcMic.Carrinho.API.Controllers
             return CustomResponse();
         }
 
+        [HttpDelete("Carrinho/Remover")]
+        public async Task<IActionResult> RemoverCarrinho()
+        {
+            var carrinhoCliente = await ObterCarrinhoCliente();
+
+            _context.CarrinhoCliente.Remove(carrinhoCliente);
+            await PersistirDados();
+
+            return CustomResponse();
+        }
+
         [HttpPost]
         [Route("carrinho/aplicar-voucher")]
         public async Task<IActionResult> AplicarVoucher(Voucher voucher)

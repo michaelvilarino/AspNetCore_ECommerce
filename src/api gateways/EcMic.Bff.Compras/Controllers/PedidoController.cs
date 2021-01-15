@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using EcMic.Bff.Compras.Models;
 using EcMic.Bff.Compras.Services;
 using EMic.WebApi.Core.Controllers;
-using NSE.Bff.Compras.Services;
 
 namespace EcMic.Bff.Compras.Controllers
 {
@@ -43,7 +42,15 @@ namespace EcMic.Bff.Compras.Controllers
 
             PopularDadosPedido(carrinho, endereco, pedido);
 
-            return CustomResponse(await _pedidoService.FinalizarPedido(pedido));
+            var pedidoFinalizado = await _pedidoService.FinalizarPedido(pedido);
+
+            if (ResponsePossuiErros(pedidoFinalizado)) return CustomResponse(pedidoFinalizado);
+
+            var carrinhoRemovido = await _carrinhoService.RemoverCarrinho();
+
+            if (ResponsePossuiErros(carrinhoRemovido)) return CustomResponse(carrinhoRemovido);
+
+            return CustomResponse();
         }
 
         [HttpGet("compras/pedido/ultimo")]

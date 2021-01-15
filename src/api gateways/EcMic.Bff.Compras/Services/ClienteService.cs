@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using EcMic.Bff.Compras.Extensions;
 using EcMic.Bff.Compras.Models;
-using EcMic.Bff.Compras.Services;
 
-namespace NSE.Bff.Compras.Services
+namespace EcMic.Bff.Compras.Services
 {
     public interface IClienteService
     {

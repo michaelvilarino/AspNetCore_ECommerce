@@ -56,7 +56,10 @@ namespace EMic.WebApi.Core.Controllers
 
         protected bool ResponsePossuiErros(ResponseResult resposta)
         {
-            if (resposta == null && !resposta.Errors.Mensagens.Any()) return false;
+            if (resposta == null || 
+                !resposta.Errors.Mensagens.Any() ||
+                resposta.Errors.Mensagens.Count == 0
+               ) return false;
             
             foreach (var mensagem in resposta.Errors.Mensagens)
             {

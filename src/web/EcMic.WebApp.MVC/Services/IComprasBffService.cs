@@ -10,7 +10,7 @@ namespace EcMic.WebApp.MVC.Services
     {
         //Carrinho
         Task<CarrinhoViewModel> ObterCarrinho();
-        Task<int> ObterQuantidadeCarrinho();
+        Task<int> ObterQuantidadeCarrinho();        
         Task<ResponseResult> AdicionarItemCarrinho(ItemCarrinhoViewModel produto);
         Task<ResponseResult> AtualizarItemCarrinho(Guid produtoId, ItemCarrinhoViewModel produto);
         Task<ResponseResult> RemoverItemCarrinho(Guid produtoId);        
