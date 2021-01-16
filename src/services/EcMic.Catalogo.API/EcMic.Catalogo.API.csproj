@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\building blocks\EcMic.Core\EcMic.Core.csproj" />
+    <ProjectReference Include="..\..\building blocks\EcMic.MessageBus\EcMic.MessageBus.csproj" />
     <ProjectReference Include="..\..\building blocks\EMic.WebApi.Core\EMic.WebApi.Core.csproj" />
   </ItemGroup>
 

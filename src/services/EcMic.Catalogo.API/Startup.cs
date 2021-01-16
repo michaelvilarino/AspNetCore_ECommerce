@@ -33,6 +33,7 @@ namespace EcMic.Catalogo.API
             services.AddJwtConfiguration(Configuration);
             services.AddSwaggerConfiguration();
             services.RegisterServices();
+            services.AddMessageBusConfiguration(Configuration);
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
