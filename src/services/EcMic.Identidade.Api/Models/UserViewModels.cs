@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EcMic.Identidade.API.Models
 {
@@ -42,6 +40,8 @@ namespace EcMic.Identidade.API.Models
         public string AccessToken { get; set; }
         public double ExpireIn { get; set; }
         public UsuarioToken UsuarioToken { get; set; }
+        public Guid RefreshToken { get;  set; }
+        public double ExpiresIn { get;  set; }
     }
 
     public class UsuarioToken

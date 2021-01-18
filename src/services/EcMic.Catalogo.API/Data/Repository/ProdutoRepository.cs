@@ -1,9 +1,11 @@
-﻿using EcMic.Catalogo.API.Models;
+﻿using Dapper;
+using EcMic.Catalogo.API.Models;
 using EcMic.Core.DomainObjects.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace EcMic.Catalogo.API.Data.Repository
@@ -24,9 +26,37 @@ namespace EcMic.Catalogo.API.Data.Repository
             return await _context.Produtos.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Produto>> ObterTodos()
+        public async Task<PagedResult<Produto>> ObterTodos(int pageSize, int pageIndex, string query = null)
         {
-            return await _context.Produtos.AsNoTracking().ToListAsync();
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("SELECT * FROM Produtos ");
+            strSql.Append(" WHERE (@Nome IS NULL OR Nome LIKE '%' + @Nome + '%') ");
+            strSql.Append(" ORDER BY [Nome] ");
+            strSql.Append($" OFFSET {pageSize * (pageIndex - 1)} ROWS ");
+            strSql.Append($" FETCH NEXT {pageSize} ROWS ONLY ");
+            strSql.Append(" SELECT COUNT(Id) FROM Produtos ");
+            strSql.Append(" WHERE (@Nome IS NULL OR Nome LIKE '%' + @Nome + '%') ");
+
+            var multi = await _context.Database.GetDbConnection()
+                                               .QueryMultipleAsync(strSql.ToString(), new { Nome = query });
+
+            var produtos = multi.Read<Produto>();
+            var total = multi.Read<int>().FirstOrDefault();
+
+            return new PagedResult<Produto>()
+            {
+                List = produtos,
+                TotalResults = total,
+                PageIndex = pageIndex,
+                PageSize = pageSize,
+                Query = query
+            };
+
+            //return await _context.Produtos.AsNoTracking()
+            //    .Skip(pageSize * (pageIndex - 1))
+            //    .Take(pageSize)
+            //    .Where(w => query == null || w.Nome.Contains(query))
+            //    .ToListAsync();
         }
 
         public void Adicionar(Produto produto)

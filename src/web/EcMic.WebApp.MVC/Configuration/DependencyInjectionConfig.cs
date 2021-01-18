@@ -55,10 +55,6 @@ namespace EcMic.WebApp.MVC.Configuration
             //       .AddTypedClient(Refit.RestService.For<ICatalogoServiceRefit>);
             #endregion HttpServices
 
-
-
-
-
         }
 
         /// <summary>

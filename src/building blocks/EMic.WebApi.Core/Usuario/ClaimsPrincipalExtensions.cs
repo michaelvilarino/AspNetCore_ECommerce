@@ -37,5 +37,15 @@ namespace EMic.WebApi.Core.Usuario
             var claim = principal.FindFirst("JWT");
             return claim?.Value;
         }
+        public static string GetUserRefreshToken(this ClaimsPrincipal principal)
+        {
+            if (principal == null)
+            {
+                throw new ArgumentException(nameof(principal));
+            }
+
+            var claim = principal.FindFirst("RefreshToken");
+            return claim?.Value;
+        }
     }
 }

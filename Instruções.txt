@@ -77,3 +77,34 @@ COMUNICAÇÃO ENTRE API'S
 16º Instalar o EasyNetQ na API de identidade e cliente : Install-Package EasyNetQ
 
 17º Instalar o pacote de injeção de dependência no camada EcMic.MessageBus:  Install-Package Microsoft.Extensions.DependencyInjection.Abstractions
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+BUSCA AVANÇADA NA VITRINE:
+Pode utilizar uma biblioteca chamada "Elastic app Search" - Grandes empresas usam.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+O projeto inicialmente está trabalhando com chaves simétricas, e isso é inseguro.
+O ideal é trabalhar com chaves assímétricas utilizando o modelo JWKS.
+
+A api de identidade vai guardar uma chave privada e a partir dela gerar uma chave pública onde será exposta para todas as APi's consumirem.
+
+Instalar os pacotes: 
+    NetDevPack.Security.JwtSigningCredencials.Store.EntityFrameworkCore - Responsável por armazenar no banco a chave
+    NetDevPack.Security.JwtSigningCredencials.AspNetCore - responsável por expor a chave
+
+Adicionar essa chamada nos serviços do AspNetCore: services.AddJwksManager(options => options.Algorithm = Algorithm.ES256)
+                    .PersistKeysToDatabaseStore<ApplicationDbContext>();
+
+Depois adicionar o migration para atualizar a base de dados: add-migration SecKeys -StartupProject EcMic.Identidade.Api
+Depois atualizar a base: update-database -StartupProject EcMic.Identidade.Api
+
+Adicionar na Api config a linha:  app.UseJwksDiscovery(). Ela será responsável por expor o endpoint da chave pública.
+No método de codificar o token, trocar o valor do Issuer: Issuer =  string currentIssuer = $"{_aspNetUser.ObterHttpContext().Request.Scheme}://{_aspNetUser.ObterHttpContext().Request.Host}";
+
+Trocar a linha que cria a chave simétrica:  var key = _jwksService.GetCurrent();
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Instalar o pacote "NetDevPack.Security.JwtExtensions" na WebApi.Core.
+Esse pacote disponibiliza um meio responsável por acessar a url que disponibiliza a chave pública do JWKS.

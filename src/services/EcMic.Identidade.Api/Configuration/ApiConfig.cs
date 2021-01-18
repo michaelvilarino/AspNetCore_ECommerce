@@ -1,8 +1,11 @@
-﻿using EMic.WebApi.Core.Identidade;
+﻿using EcMic.Identidade.API.Services;
+using EMic.WebApi.Core.Identidade;
+using EMic.WebApi.Core.Usuario;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NetDevPack.Security.JwtSigningCredentials.AspNetCore;
 
 namespace EcMic.Identidade.API.Configuration
 {
@@ -11,6 +14,8 @@ namespace EcMic.Identidade.API.Configuration
         public static IServiceCollection AddApiConfiguration(this IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<IAspNetUser, AspNetUser>();
+            services.AddScoped<AuthenticationService>();
 
             return services;
         }
@@ -32,6 +37,8 @@ namespace EcMic.Identidade.API.Configuration
             {
                 endpoints.MapControllers();
             });
+
+            app.UseJwksDiscovery();
 
             return app;
         }
