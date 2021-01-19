@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.14.0" />
+    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.34.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.34.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
@@ -19,5 +25,8 @@
     <ProjectReference Include="..\..\building blocks\EMic.WebApi.Core\EMic.WebApi.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Protobuf Include="..\..\services\EcMic.Carrinho.API\Protos\carrinho.proto" GrpcServices="Client" />
+  </ItemGroup>
 
 </Project>

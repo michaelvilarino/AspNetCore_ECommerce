@@ -61,7 +61,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcMic.Pedido.Domain", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcMic.Pedido.Infra", "src\services\EcMic.Pedido.Infra\EcMic.Pedido.Infra.csproj", "{D98FB658-7CCC-4C2E-BEFB-963816C8B441}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcMic.Pagamento.MicPag", "src\services\EcMic.Pagamento.MicPag\EcMic.Pagamento.MicPag.csproj", "{AADF4A5C-7B76-4FAC-99F5-44D994461376}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcMic.Pagamento.MicPag", "src\services\EcMic.Pagamento.MicPag\EcMic.Pagamento.MicPag.csproj", "{AADF4A5C-7B76-4FAC-99F5-44D994461376}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

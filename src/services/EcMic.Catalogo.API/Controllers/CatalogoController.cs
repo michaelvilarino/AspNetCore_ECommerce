@@ -1,6 +1,4 @@
 ﻿using EcMic.Catalogo.API.Models;
-using EMic.WebApi.Core.Identidade;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,7 +6,7 @@ using System.Threading.Tasks;
 using EMic.WebApi.Core.Controllers;
 
 namespace EcMic.Catalogo.API.Controllers
-{    
+{
     public class CatalogoController : MainController
     {
         private readonly IProdutoRepository _produtoRepository;
@@ -18,7 +16,7 @@ namespace EcMic.Catalogo.API.Controllers
             _produtoRepository = IProdutoRepository;
         }
 
-  
+       
         [HttpGet("catalogo/produtos")]
         public async Task<PagedResult<Produto>> Index([FromQuery] int ps = 8, 
                                                       [FromQuery] int page = 1, 

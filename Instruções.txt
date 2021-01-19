@@ -108,3 +108,36 @@ Trocar a linha que cria a chave simétrica:  var key = _jwksService.GetCurrent();
 
 Instalar o pacote "NetDevPack.Security.JwtExtensions" na WebApi.Core.
 Esse pacote disponibiliza um meio responsável por acessar a url que disponibiliza a chave pública do JWKS.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+gRPC:
+ - Comunicação entre a API Gateway de compras com a API de carrinho
+Api de carrinho será o cenário de "SERVER" e Api de Gateway será o "CLIENT".
+
+Instalar o seguinte pacote na api de carrinho: Install-Package Grpc.AspNetcore
+Configurar o arquivo: carrinho.proto
+Expor o serviço no csproj :  
+   <ItemGroup>
+       <Protobuf Include="Protos\carrinho.proto" GrpcServices="Server"/>
+  </ItemGroup>
+
+Configurar a Apiconfiguration:
+
+    services.AddGrpc();
+    endpoints.MapGrpcService<CarrinhoGrpcService>().RequireCors("Total");
+
+
+Configurar o csproj do comprasbff:
+    		<PackageReference Include="Google.Protobuf" Version="3.12.4" />
+		<PackageReference Include="Grpc.Net.ClientFactory" Version="2.30.0" />
+		<PackageReference Include="Grpc.Tools" Version="2.31.0" PrivateAssets="All" />
+
+	<ItemGroup>
+		<Protobuf Include="..\..\services\EcMic.Carrinho.API\Protos\carrinho.proto" GrpcServices="Client" />
+	</ItemGroup>
+
+O IISExpress não funciona com o gRPC por enquanto.
+O ideal é rodar os projetos em self-hosting para que tenha o suporte.
+
+Na camada de apresentação (MVC) é preciso tratar os erros do gRPC. Para isso é necessário instalar um pacote chamado: Grpc.Core.Api

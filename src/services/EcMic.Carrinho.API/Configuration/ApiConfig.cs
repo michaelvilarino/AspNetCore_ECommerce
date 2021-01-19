@@ -1,4 +1,5 @@
 ﻿using EcMic.Carrinho.API.Data;
+using EcMic.Carrinho.API.Services.gRPC;
 using EMic.WebApi.Core.Identidade;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,6 +18,8 @@ namespace EcMic.Carrinho.API.Configuration
               options.UseSqlServer(configuration.GetConnectionString(name: "DefaultConnection")));
 
             services.AddControllers();
+
+            services.AddGrpc();
 
             services.AddCors(options =>
             {
@@ -47,6 +50,7 @@ namespace EcMic.Carrinho.API.Configuration
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapGrpcService<CarrinhoGrpcService>().RequireCors("Total");
             });
         }
     }

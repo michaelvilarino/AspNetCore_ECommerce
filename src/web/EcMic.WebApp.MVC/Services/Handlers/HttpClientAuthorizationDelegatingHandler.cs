@@ -29,7 +29,7 @@ namespace EcMic.WebApp.MVC.Services.Handlers
 
             if(token != null)
             {
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);                
             }
 
             return base.SendAsync(request, cancellationToken);

@@ -1,6 +1,8 @@
 ﻿using EcMic.Bff.Compras.Models;
 using EcMic.Bff.Compras.Services;
+using EcMic.Bff.Compras.Services.gRPC;
 using EMic.WebApi.Core.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
@@ -8,33 +10,37 @@ using System.Threading.Tasks;
 
 namespace EcMic.Bff.Compras.Controllers
 {
+    [Authorize]
     public class CarrinhoController : MainController
     {
         private readonly ICarrinhoService _carrinhoService;
+        private readonly ICarrinhoGrpcService _carrinhoGrpcService;
         private readonly ICatalogoService _catalogoService;
         private readonly IPedidoService _pedidoService;
 
-        public CarrinhoController(ICarrinhoService ICarrinhoService, 
+        public CarrinhoController(ICarrinhoService ICarrinhoService,
+                                  ICarrinhoGrpcService ICarrinhoGrpcService,
                                   ICatalogoService ICatalogoService,
                                   IPedidoService   IPedidoService)
         {
             _carrinhoService = ICarrinhoService;
             _catalogoService = ICatalogoService;
             _pedidoService   = IPedidoService;
+            _carrinhoGrpcService = ICarrinhoGrpcService;
         }
 
         [HttpGet]
         [Route("compras/carrinho")]
         public async Task<IActionResult> Index()
         {
-            return CustomResponse(await _carrinhoService.ObterCarrinho());
+            return CustomResponse(await _carrinhoGrpcService.ObterCarrinho());
         }
 
         [HttpGet]
         [Route("compras/carrinho-quantidade")]
         public async Task<int> ObterQuantidadeCarrinho()
         {
-            var quantidade = await _carrinhoService.ObterCarrinho();
+            var quantidade = await _carrinhoGrpcService.ObterCarrinho();
             return quantidade?.Itens.Sum(s => s.Quantidade) ?? 0;
         }
 
